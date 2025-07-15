@@ -113,9 +113,9 @@ const Login = () => {
       </button>
     {/* links */}
     <div className="flex justify-between mt-4 text-sm">
-    <a className="text-[#7a6ff6] hover:underline" href="">
+    <span className="text-[#7a6ff6] hover:underline" href="/">
             Not registered?
-          </a>
+          </span>
          <Link className="text-[#7a6ff6] hover:underline" to='/signup'>
          Signup
          </Link>
