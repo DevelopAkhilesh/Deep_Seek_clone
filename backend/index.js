@@ -13,6 +13,14 @@ const port = process.env.PORT||4000;
 App.use(express.json())
 App.use(cookieParser())
 
+App.use(cors({
+origin:process.env.FRONTEND_URL, 
+credentials:true,
+methods:["GET","POST","PUT","DELETE"],
+allowedHeaders:["Content-Type","Authorization"]
+}));
+
+
 
 
 

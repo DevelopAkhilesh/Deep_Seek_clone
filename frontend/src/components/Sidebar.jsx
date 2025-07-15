@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import sidebar_close from "../assets/sidebar_close_icon.svg"
 import profile_icon from "../assets/profile_icon.svg"
 import {LogOut}from "lucide-react"
+import { UseAuth } from '../contest/Authprovider.jsx'
+import { useNavigate } from 'react-router-dom'
+import Cookies from "js-cookie"
+import axios from 'axios'
 
 const Sidebar = () => {
-
+    const navigate=useNavigate();
+    const{setAuthUser}= UseAuth();
+    const [userName,setUserName]=useState(()=>{
+      return JSON.parse(localStorage.getItem("user"))
+    })
     
+    const handleLogout= async()=>{
+      try {
+        const {data}=await axios.get("http://localhost:3000/api/v1/user/logout",{
+          withCredentials:true
+        })
+        
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+       
+        alert(data.message)
+        Cookies.remove("jwt");
+        setAuthUser(null)
+        navigate("/login")
+      } catch (error) {
+        
+      }
+    }
   return (
     <div className='h-full flex flex-col justify-between p-4'>
    {/* Header */}
@@ -28,9 +53,9 @@ const Sidebar = () => {
     <div className='flex flex-col gap-3 mt-3'>
         <div className='flex items-center gap-2 cursor-pointer'>
             <img src={profile_icon} alt="profile image" />
-            <span className='text-gray-300 font-bold'>My Profile</span>
+            <span className='text-gray-300 font-bold'>{userName?userName.firstName:"Profile"}</span>
         </div>
-        <button className='w-full flex items-center gap-2 text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-700 duration-300 transition'>
+        <button onClick={handleLogout}  className='w-full flex items-center gap-2 text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-700 duration-300 transition'>
             <LogOut className=''/>Logout
             </button>
     </div>

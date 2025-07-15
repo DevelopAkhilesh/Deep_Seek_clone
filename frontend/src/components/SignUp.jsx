@@ -6,18 +6,22 @@ import axios from "axios"
 
 const SignUp = () => {
     const [formData,setFormData]=useState({
-        firstName:"",
-        lastName:"",
         email:"",
         password:""});
 
     const [error,setError] = useState("");
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate()
+
     const handleChange=(e)=>{
       const value = e.target.value;
       const name = e.target.name;
       setFormData({...formData,[name]:value})
+    }
+    const handleKeyDown =(e)=>{
+      if(key=="Enter"){
+        handleSignup()
+      }
     }
 
     const handleSignup = async()=>{
@@ -26,7 +30,7 @@ const SignUp = () => {
          const {data}= await axios.post(`http://localhost:3000/api/v1/user/signup`,{
             firstName:formData.firstName,
             lastName:formData.lastName,
-            email:formData.lastName,
+            email:formData.email,
             password:formData.password
           },{
             withCredentials:true,
@@ -58,6 +62,7 @@ const SignUp = () => {
         placeholder='First Name'
         value={formData.firstName}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         required
         />
      </div >
@@ -70,6 +75,7 @@ const SignUp = () => {
             placeholder="Last Name"
             value={formData.lastName}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
      </div>
     {/* Email */}
@@ -81,6 +87,7 @@ const SignUp = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             
           />
     </div>
@@ -93,6 +100,7 @@ const SignUp = () => {
         placeholder="Password"
         value={formData.password}
         onChange={handleChange} 
+        onKeyDown={handleKeyDown}
           />
           
      <span className=" absolute right-3 top-3 text-gray-400">
