@@ -29,7 +29,7 @@ const Login = () => {
     const handleSignup = async()=>{
       setLoading(true)
         try {
-         const {data}= await axios.post(`http://localhost:3000/api/v1/user/login`,{
+         const {data}= await axios.post(`https://deep-seek-clone-t27x.onrender.com/api/v1/user/login`,{
             
             email:formData.email,
             password:formData.password
