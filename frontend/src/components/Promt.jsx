@@ -81,7 +81,7 @@ const Promt = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token')
-           const {data}= await axios.post('http://localhost:3000/api/v1/deepseekai/promt',{
+           const {data}= await axios.post('https://deep-seek-clone-t27x.onrender.com/api/v1/deepseekai/promt',{
                 content:trimValue,},
                 {headers:{
                     Authorization:`Bearer ${token}`
